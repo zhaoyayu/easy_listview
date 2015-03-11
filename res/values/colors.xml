@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="black">#000000</color>
+    <color name="black_half_trans">#80000000</color>
+    <color name="white">#ffffff</color>
+    <color name="red">#ff0000</color>
+    <color name="orange">#FFB41B</color>
+    <color name="main_bg">#f6f6f6</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- 下拉刷新颜色值 -->
+    <color name="pulltorefresh_text_color">#ff888888</color>
+
+    <!-- 标题背景色 -->
+    <color name="title_bg">#f1f1f1</color>
+    <color name="bottom_bg">#ef6a61</color>
+
+    <!-- 加载失败界面 -->
+    <color name="load_fail_title">#5e5e5e</color>
+
+    <!-- 我的订单页面色值 -->
+    <color name="orderitem_title_color">#4d4d4d</color>
+    <color name="orderitem_price_color">#fc5300</color>
+    <color name="orderitem_title1_color">#8a8a8a</color>
+    <color name="orderitem_bg_color">#edf5f9</color>
+    <color name="comment_list_item_parent_1">#EECBAD</color>
+    <color name="comment_list_item_parent_2">#EE6A50</color>
+    <color name="comment_list_titlebg_color">#dd8769</color>
+
+    <!-- 地图页面 -->
+    <color name="map_title_text_color">#4b7779</color>
+    <color name="map_num_text_color">#8e8e8e</color>
+    <color name="map_price_text_color">#eb5e20</color>
+    <color name="map_distance_text_color">#7bcacf</color>
+
+    <!-- 发现页排序 -->
+    <color name="bg_color_gray">#eeeeee</color>
+    <color name="discover_txt_color_sel">#ed7249</color>
+    <color name="discover_txt_color">#9b9999</color>
+    <color name="discover_time_txt_color">#f06b62</color>
+    <color name="discover_venue_txt_color">#ef6f65</color>
+
+    <!-- 卖家列表 -->
+    <color name="seller_green">#396a4d</color>
+    <color name="seller_red">#ef726a</color>
+    <color name="seller_gray">#8a8a8a</color>
+
+    <!-- 地区选择 -->
+    <color name="areasearch_title_color">#eaeaea</color>
+    <color name="areasearch_title_text_color">#383838</color>
+
+    <!-- 字体颜色 -->
+    <color name="txt_dark_green">#4b7779</color>
+    <color name="txt_light_green">#7bcacf</color>
+    <color name="txt_pink">#ef726a</color>
+    <color name="txt_dark_pink">#fb5932</color>
+    <color name="txt_orange">#eb5e20</color>
+    <color name="txt_orange_discover">#ed6a61</color>
+    <color name="txt_orange1">#f06b62</color>
+    <color name="txt_light_gray">#8a8a8a</color>
+    <color name="txt_dark_gray">#666666</color>
+    <color name="txt_dark_gray1">#333333</color>
+    <color name="txt_hint_gray">#d7d7d7</color>
+
+    <!-- 提交订单页 -->
+    <color name="txt_commentorder_gray">#244346</color>
+    <color name="txt_commentorder_hint_gray">#b2b2b2</color>
+
+    <!-- 卖家详情 -->
+    <color name="seller_bg_dark_green">#4e6769</color>
+    <color name="seller_bg_light_green">#93d3da</color>
+    <color name="seller_bg_yellow">#ecd8a3</color>
+
+    <!-- 订单列表页 -->
+    <color name="orderlist_item_line_color">#e4f4f6</color>
+
+    <!-- 设置页 -->
+    <color name="setting_txt_color">#b4b4b4</color>
+    <color name="setting_line_color">#e5e5e5</color>
+
+    <!-- 演出信息页 -->
+    <color name="showinfo_red_color">#de7e5c</color>
+    <color name="showinfo_dark_gray">#a8a8a8</color>
+    <color name="showinfo_bg_color">#535353</color>
+    <color name="showinfo_likebg_color">#80000000</color>
+
+    <!-- 分割线 -->
+    <color name="line_light">#f6f6f6</color>
+    <color name="content_line">#a8a8a8</color>
+    <!-- 标题分割线 -->
+    <color name="title_line">#ebebeb</color>
+    <!-- 新增字体颜色 -->
+    <color name="txt_light_red">#f06b62</color>
+    <color name="txt_light_blue">#7dcef4</color>
+    <color name="txt_green">#09fffc</color>
+    <color name="txt_title_orange">#ea5514</color>
+    <color name="txt_title_gray">#999999</color>
+    <color name="txt_content_gray">#666666</color>
+    <color name="txt_map_distance_gray">#7bcacf</color>
+    <!-- 删除线颜色 -->
+    <color name="txt_delete_gray">#c8c8c8</color>
+    <!-- item按压后颜色/提示文字 -->
+    <color name="discover_item_press">#cfcfcf</color>
+    <!-- 地址详情界面红色 -->
+    <color name="txt_address_red">#ef6f65</color>
+    <color name="txt_address_gray">#cdcdcd</color>
+    <color name="txt_address_black">#666666</color>
+    <!-- 订单确认页面展开区域背景色 -->
+    <color name="create_order_address_bg">#fcfcfc</color>
+    <!-- 订单确认页面文字色值 -->
+    <color name="txt_create_order_blue">#1aa9f3</color>
+    <!-- 三级联动 -->
+    <color name="province_line_border">#ffdedede</color>
+    <color name="province_line_black">#484647</color>
+
+</resources>

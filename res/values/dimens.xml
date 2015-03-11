@@ -1,0 +1,25 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="thumnail_default_width">200dip</dimen>
+    <dimen name="thumnail_default_height">80dip</dimen>
+    <dimen name="padding_1dp">1dp</dimen>
+    <dimen name="padding_2dp">2dp</dimen>
+    <dimen name="padding_20dp">20dp</dimen>
+    <dimen name="padding_100dp">100dp</dimen>
+
+    <!-- 页面上标题栏左右点击按钮距离 -->
+    <dimen name="title_bar_side_range">15dp</dimen>
+    <dimen name="title_bar_otherside_range">15dp</dimen>
+    <dimen name="title_bar_top_range">10dp</dimen>
+    <dimen name="title_bar_bottom_range">10dp</dimen>
+    <!-- 文字大小 -->
+    <dimen name="text_size_less_small">14sp</dimen>
+    <dimen name="text_size_small">16sp</dimen>
+    <dimen name="text_size_middle">18sp</dimen>
+    <dimen name="text_size_larger">20sp</dimen>
+    <dimen name="text_size_x_larger">22sp</dimen>
+
+</resources>
