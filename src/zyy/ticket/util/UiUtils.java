@@ -31,13 +31,17 @@ public class UiUtils {
 		return result;
 	}
 
-	/** dip转换px */
+	/**
+	 * dip转换px
+	 */
 	public static int dip2px(int dip) {
 		final float scale = getContext().getResources().getDisplayMetrics().density;
 		return (int) (dip * scale + 0.5f);
 	}
 
-	/** pxz转换dip */
+	/**
+	 * pxz转换dip
+	 */
 	public static int px2dip(int px) {
 		final float scale = getContext().getResources().getDisplayMetrics().density;
 		return (int) (px / scale + 0.5f);
