@@ -45,9 +45,6 @@ public class UiUtils {
 
 	/**
 	 * 判断是都为空串或"null"串
-	 * 
-	 * @param s
-	 * @return
 	 */
 	public static boolean isEmptyStr(String s) {
 		if (s != null && !"".equals(s) && !"null".equals(s)) {
