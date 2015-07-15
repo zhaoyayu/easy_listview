@@ -1,6 +1,3 @@
-/**
- * 
- */
 package zyy.ticket.adapter;
 
 /**
@@ -35,6 +32,13 @@ public abstract class MyAdapter<T> extends BaseAdapter {
     }
 
 
+    public MyAdapter(Context mContext, int mItemLayoutId) {
+        super();
+        this.mContext = mContext;
+        this.mItemLayoutId = mItemLayoutId;
+    }
+
+
     /**
      * 设置数据源
      */
@@ -45,7 +49,9 @@ public abstract class MyAdapter<T> extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mDatas.size();
+        if (mDatas != null && mDatas.size() > 0)
+            return mDatas.size();
+        return 0;
     }
 
 
@@ -65,6 +71,7 @@ public abstract class MyAdapter<T> extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder viewHolder = getViewHolder(position, convertView, parent);
         convert(viewHolder, getItem(position));
+        converts(viewHolder, getItem(position), position);
         return viewHolder.getConvertView();
     }
 
@@ -78,4 +85,7 @@ public abstract class MyAdapter<T> extends BaseAdapter {
 
 
     public abstract void convert(ViewHolder viewHolder, T model);
+
+
+    public void converts(ViewHolder viewHolder, T model, int position) {};
 }
