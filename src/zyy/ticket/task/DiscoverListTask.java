@@ -9,64 +9,71 @@ import zyy.ticket.observer.DiscoverListObserver;
 
 /**
  * 发现列表task
- * 
- * @author gefangyan
- * 
  */
 public class DiscoverListTask extends BaseJsonTask {
 
-	private DiscoverListObserver tlo;
-	private List<TicketModel> model;
-	int ticketType;
-	int pageSize;
-	String cityId;
-	String showTypeId;
-	String venueId;
-	String timeId;
-	int currentPage;
-	int refreshType;
+    private DiscoverListObserver tlo;
 
-	public DiscoverListTask(int type, String cityId, String showTypeId,
-			String venueId, String timeId, int pageSize, int currentPage,
-			boolean isHandler, DiscoverListObserver tlo, int refreshType) {
-		this.type = type;
-		this.tlo = tlo;
-		this.cityId = cityId;
-		this.showTypeId = showTypeId;
-		this.venueId = venueId;
-		this.timeId = timeId;
-		this.isHandler = isHandler;
-		this.pageSize = pageSize;
-		this.currentPage = currentPage;
-		this.refreshType = refreshType;
-	}
+    private List<TicketModel> model;
 
-	/**
-	 * 获取观察者对象
-	 * 
-	 * @return
-	 */
-	public DiscoverListObserver getObserver() {
-		return tlo;
-	}
+    int ticketType;
 
-	/**
-	 * 任务完成回调
-	 */
-	public void taskCallBack() {
-		tlo.getJsonData(type, refreshType, model, erro);
-	}
+    int pageSize;
 
-	@Override
-	public void run() {
-		model = JsonParser.getShowListMode(cityId, showTypeId, venueId, timeId,
-				pageSize, currentPage, DiscoverListTask.this);
-		if (isHandler) {
-			EngineFactory.getInstance().jsonHelper.jsonHandlerManager
-					.sendHandlerMsg(type, DiscoverListTask.this);
-		} else {
-			taskCallBack();
-		}
-	}
+    String cityId;
+
+    String showTypeId;
+
+    String venueId;
+
+    String timeId;
+
+    int currentPage;
+
+    int refreshType;
+
+
+    public DiscoverListTask(int type, String cityId, String showTypeId, String venueId, String timeId, int pageSize, int currentPage, boolean isHandler,
+            DiscoverListObserver tlo, int refreshType) {
+        this.type = type;
+        this.tlo = tlo;
+        this.cityId = cityId;
+        this.showTypeId = showTypeId;
+        this.venueId = venueId;
+        this.timeId = timeId;
+        this.isHandler = isHandler;
+        this.pageSize = pageSize;
+        this.currentPage = currentPage;
+        this.refreshType = refreshType;
+    }
+
+
+    /**
+     * 获取观察者对象
+     * 
+     * @return
+     */
+    public DiscoverListObserver getObserver() {
+        return tlo;
+    }
+
+
+    /**
+     * 任务完成回调
+     */
+    public void taskCallBack() {
+        tlo.getJsonData(type, refreshType, model, erro);
+    }
+
+
+    @Override
+    public void run() {
+        model = JsonParser.getShowListMode(cityId, showTypeId, venueId, timeId, pageSize, currentPage, DiscoverListTask.this);
+        if (isHandler) {
+            EngineFactory.getInstance().jsonHelper.jsonHandlerManager.sendHandlerMsg(type, DiscoverListTask.this);
+        } else {
+            taskCallBack();
+        }
+    }
 
 }

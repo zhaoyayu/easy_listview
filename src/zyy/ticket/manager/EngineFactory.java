@@ -7,37 +7,43 @@ import android.content.Context;
  * 
  */
 public class EngineFactory {
-	private static EngineFactory engine;
-	public JsonHelper jsonHelper;
-	private static Context context;
 
-	public EngineFactory() {
-		jsonHelper = new JsonHelper(context);
-	}
+    private static EngineFactory engine;
 
-	/**
-	 * 单例模式
-	 * 
-	 * @return
-	 */
-	public static EngineFactory getInstance() {
-		if (engine == null) {
-			synchronized (EngineFactory.class) {
-				if (engine == null) {
-					engine = new EngineFactory();
-				}
-			}
-		}
-		return engine;
-	}
+    public JsonHelper jsonHelper;
 
-	/**
-	 * 初始化context
-	 * 
-	 * @param context
-	 */
-	public static Context initContext(Context con) {
-		context = con;
-		return context;
-	}
+    private static Context context;
+
+
+    public EngineFactory() {
+        jsonHelper = new JsonHelper(context);
+    }
+
+
+    /**
+     * 单例模式
+     * 
+     * @return
+     */
+    public static EngineFactory getInstance() {
+        if (engine == null) {
+            synchronized (EngineFactory.class) {
+                if (engine == null) {
+                    engine = new EngineFactory();
+                }
+            }
+        }
+        return engine;
+    }
+
+
+    /**
+     * 初始化context
+     * 
+     * @param context
+     */
+    public static Context initContext(Context con) {
+        context = con;
+        return context;
+    }
 }
