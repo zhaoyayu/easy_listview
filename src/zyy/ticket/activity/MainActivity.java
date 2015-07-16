@@ -4,25 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import zhaoyayu.ticket.R;
-import zyy.ticket.application.MyApplication;
+import zyy.ticket.adapter.MyAdapter;
+import zyy.ticket.constant.Constant;
 import zyy.ticket.constant.JsonHttpConstant;
+import zyy.ticket.holder.ViewHolder;
 import zyy.ticket.model.TicketModel;
 import zyy.ticket.observer.DiscoverListObserver;
 import zyy.ticket.util.UiUtils;
-import android.content.Intent;
+import zyy.ticket.view.RefreshLayout;
+import zyy.ticket.view.RefreshLayout.OnLoadListener;
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
-public class MainActivity extends BaseActivity {
-
-    private long mExitTime;
+public class MainActivity extends BaseActivity implements OnRefreshListener, OnLoadListener {
 
     private ListView showListView;
 
@@ -36,7 +33,9 @@ public class MainActivity extends BaseActivity {
 
     private int showListPage = 1;
 
-    private ShowListAdapter showListAdapter;
+    private MyAdapter<TicketModel> myAdapter;
+
+    private RefreshLayout sw_list;
 
 
     @Override
@@ -48,16 +47,35 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    private void initView() {
-        showListView = (ListView) findViewById(R.id.discover_item_list);
-        showListAdapter = new ShowListAdapter();
-        showListAdapter.setData(showList);
-        showListView.setAdapter(showListAdapter);
+    private void initData() {
+        requestShowList(showTypeId, Constant.REFRESH_TYPE_PULL);
     }
 
 
-    private void initData() {
-        requestShowList(showTypeId);
+    private void initView() {
+        sw_list = (RefreshLayout) findViewById(R.id.sw_list);
+        sw_list.setOnRefreshListener(this);
+        sw_list.setOnLoadListener(this);
+        sw_list.setColorSchemeResources(Constant.PULL_COLORS);
+        showListView = (ListView) findViewById(R.id.discover_item_list);
+        myAdapter = new MyAdapter<TicketModel>(context, showList, R.layout.discover_item) {
+
+            @Override
+            public void convert(ViewHolder viewHolder, final TicketModel model) {
+                viewHolder.setText(R.id.tv_item_title, model.getProject_name());
+                viewHolder.setText(R.id.tv_item_price, model.getLow_price_transaction() + " - " + model.getHigh_price_transaction());
+                viewHolder.setText(R.id.tv_item_num, model.getFree_count() + "张");
+                viewHolder.setImageByUrl(R.id.iv_item_poster, model.getHorizontal_image(), R.drawable.discover_default);
+                viewHolder.getConvertView().setOnClickListener(new OnClickListener() {
+
+                    @Override
+                    public void onClick(View arg0) {
+                        UiUtils.showToast(context, model.getProject_name() + "onclick");
+                    }
+                });
+            }
+        };
+        showListView.setAdapter(myAdapter);
     }
 
 
@@ -65,132 +83,61 @@ public class MainActivity extends BaseActivity {
      * 刷新发现列表数据
      */
     private void flushShowList() {
-        showListAdapter.setData(showList);
-        showListAdapter.notifyDataSetChanged();
+        myAdapter.setData(showList);
+        myAdapter.notifyDataSetChanged();
     }
 
 
     /**
      * 请求发现演出列表数据
      */
-    private void requestShowList(String showTypeId) {
+    private void requestShowList(String showTypeId, final int rType) {
+        if (rType == Constant.REFRESH_TYPE_MORE) {
+            if (showList.size() <= 0) {
+                sw_list.setLoading(false);
+            } else if (showList.size() % Constant.listLoadNum != 0) {
+                UiUtils.showToast(this, "没有更多数据");
+                sw_list.setLoading(false);
+                return;
+            }
+        }
+        if (rType == Constant.REFRESH_TYPE_MORE) {
+            showListPage++;
+        } else if (rType == Constant.REFRESH_TYPE_PULL) {
+            showListPage = 1;
+        }
         DiscoverListObserver discoverListObserver = new DiscoverListObserver() {
 
             @Override
             public void getJsonData(int type, int refreshType, List<TicketModel> data, String erro) {
                 if (data != null) {
-                    if (data.size() > 0) {
+                    if (rType == Constant.REFRESH_TYPE_MORE) {
                         showList.addAll(data);
-                        flushShowList();
+                    } else if (rType == Constant.REFRESH_TYPE_PULL) {
+                        showList = data;
                     }
+                    flushShowList();
                 } else {
                     UiUtils.showToast(MainActivity.this, "获取失败");
                 }
+                sw_list.setLoading(false);
+                sw_list.setRefreshing(false);
             }
         };
-        jsonHelper.sendJsonManager.helpShowListJsonData(JsonHttpConstant.JSONDATA_TYPE_SHOW_LIST, "852", showTypeId, venueId + "", timeId + "", 100,
-                showListPage, true, discoverListObserver, 0);
-    }
-
-    /**
-     * 项目列表adapter
-     */
-    class ShowListAdapter extends BaseAdapter {
-
-        List<TicketModel> mShowList;
-
-        private ShowViewHolder showViewHolder;
-
-
-        public void setData(List<TicketModel> showList) {
-            this.mShowList = showList;
-        }
-
-
-        @Override
-        public int getCount() {
-            if (mShowList != null)
-                return mShowList.size();
-            return 0;
-        }
-
-
-        @Override
-        public Object getItem(int position) {
-            return mShowList.get(position);
-        }
-
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-
-        public View getView(int position, View convertView, ViewGroup parent) {
-            final TicketModel ticketModel = mShowList.get(position);
-            if (convertView == null) {
-                showViewHolder = new ShowViewHolder();
-                convertView = inflater.inflate(R.layout.discover_item, null);
-                showViewHolder.tv_item_price = (TextView) convertView.findViewById(R.id.tv_item_price);
-                showViewHolder.tv_item_title = (TextView) convertView.findViewById(R.id.tv_item_title);
-                showViewHolder.tv_item_num = (TextView) convertView.findViewById(R.id.tv_item_num);
-                showViewHolder.iv_item_poster = (ImageView) convertView.findViewById(R.id.iv_item_poster);
-                convertView.setTag(showViewHolder);
-            } else {
-                showViewHolder = (ShowViewHolder) convertView.getTag();
-            }
-            showViewHolder.tv_item_title.setText(ticketModel.getTicketname());
-            showViewHolder.tv_item_price.setText(ticketModel.getLow_price() + " - " + ticketModel.getHighest_price());
-            showViewHolder.tv_item_num.setText("" + ticketModel.getFreecount() + "张");
-            showViewHolder.iv_item_poster.setImageResource(R.drawable.discover_default);
-            convertView.setOnClickListener(new OnClickListener() {
-
-                @Override
-                public void onClick(View arg0) {
-                    Intent intent = new Intent(context, EasyActivity.class);
-                    startActivity(intent);
-                }
-            });
-            return convertView;
-        }
-    }
-
-    /**
-     * 发现列表缓存控件
-     */
-    class ShowViewHolder {
-
-        // 图片
-        ImageView iv_item_poster;
-
-        // 标题
-        TextView tv_item_title;
-
-        // 价格
-        TextView tv_item_price;
-
-        // 张数
-        TextView tv_item_num;
+        jsonHelper.sendJsonManager.helpShowListJsonData(JsonHttpConstant.JSONDATA_TYPE_SHOW_LIST, "852", showTypeId, venueId + "", timeId + "",
+                Constant.listLoadNum, showListPage, true, discoverListObserver, 0);
     }
 
 
-    /**
-     * 连续按两次返回键退出
-     */
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if ((System.currentTimeMillis() - mExitTime) > 800) {
-                UiUtils.showToast(this, "再按一次退出");
-                mExitTime = System.currentTimeMillis();
-            } else {
-                mExitTime = 0;
-                MyApplication.getInstance().exit();
-                finish();
-            }
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
+    public void onLoad() {
+        requestShowList(showTypeId, Constant.REFRESH_TYPE_MORE);
     }
+
+
+    @Override
+    public void onRefresh() {
+        requestShowList(showTypeId, Constant.REFRESH_TYPE_PULL);
+    }
+
 }

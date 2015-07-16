@@ -2,12 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".MainActivity" >
 
-    <ListView
-        android:id="@+id/discover_item_list"
-        android:layout_width="match_parent"
+    <zyy.ticket.view.RefreshLayout
+        android:id="@+id/sw_list"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
-    </ListView>
+        <ListView
+            android:id="@+id/discover_item_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </ListView>
+    </zyy.ticket.view.RefreshLayout>
 
 </RelativeLayout>

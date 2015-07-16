@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * @author zhaoyayu
@@ -151,21 +152,8 @@ public class ViewHolder {
      */
     public ViewHolder setImageByUrl(int viewId, String url, int drawableId) {
         initImageLoader();
-        // ImageLoader.getInstance().displayImage(url, (ImageView) getView(viewId), options);
+        ImageLoader.getInstance().displayImage(url, (ImageView) getView(viewId), options);
         return this;
-    }
-
-
-
-    private void initImageLoader(int drawableId) {
-        if (options == null) {
-            options = new DisplayImageOptions.Builder() // 设置图片下载期间显示的图片
-                    .showImageForEmptyUri(drawableId) // 设置图片Uri为空或是错误的时候显示的图片
-                    .showImageOnFail(drawableId) // 设置图片加载或解码过程中发生错误显示的图片
-                    .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
-                    .cacheOnDisc(true) // 设置下载的图片是否缓存在SD卡中
-                    .build();
-        }
     }
 
 

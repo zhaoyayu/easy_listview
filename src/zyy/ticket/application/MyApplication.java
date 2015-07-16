@@ -7,6 +7,9 @@ import android.app.Activity;
 import android.app.Application;
 import android.util.Log;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 /**
  * application类
  * 
@@ -33,6 +36,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(this));
     }
 
 
