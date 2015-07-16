@@ -57,10 +57,8 @@ public class HttpUtils {
         HttpParams params = new BasicHttpParams();
         HttpConnectionParams.setConnectionTimeout(params, TIME_OUT);
         HttpConnectionParams.setSoTimeout(params, TIME_OUT);
-
         HttpClient httpClient = new DefaultHttpClient(params);
         HttpGet httpGet = new HttpGet(getUrl);
-
         httpGet.addHeader("User-Agent", setUA_header());
         try {
             HttpResponse response = httpClient.execute(httpGet);
@@ -127,8 +125,6 @@ public class HttpUtils {
         }
 
     }
-
-
 
 
     public static String setUA_header() {

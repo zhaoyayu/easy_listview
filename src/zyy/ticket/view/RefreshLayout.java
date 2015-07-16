@@ -17,7 +17,7 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
 
 /**
- * android 自带下拉刷新
+ * 下拉刷新,上拉加载更多
  * 
  * @author zhaoyayu
  */

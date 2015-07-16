@@ -1,9 +1,5 @@
 package zyy.ticket.adapter;
 
-/**
- * @author zhaoyayu
- * 
- */
 import java.util.List;
 
 import zyy.ticket.holder.ViewHolder;
